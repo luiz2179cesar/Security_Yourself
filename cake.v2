@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Super EPI oferece uma ampla gama de equipamentos de proteção individual para garantir sua segurança.">
+    <meta name="keywords" content="EPI, equipamentos de proteção, segurança no trabalho">
+    <title>Super EPI - Equipamentos de Proteção Individual</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e7e6e2;
+        }
+        header {
+            background-color: #e66e0c;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            position: relative;
+        }
+        .cart-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .cart-icon img {
+            width: 24px;
+            height: 24px;
+        }
+        .cart-count {
+            background-color: #ff0000;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+        .search-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1em;
+            text-align: center;
+        }
+        .search-container input[type="text"] {
+            padding: 0.5em;
+            width: 80%;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .search-container button {
+            padding: 0.5em 1em;
+            background-color: #004080;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .search-container button:hover {
+            background-color: #003366;
+        }
+        nav {
+            background-color: #e66e0c;
+            padding: 0.5em;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 1em;
+            background-color: #e66e0c;
+            padding: 5px;
+            border-radius: 6px;
+        }
+
+        nav ul li:hover {
+            margin: 0 1em;
+            background-color: #dd890a;
+            padding: 4px;
+            border-radius: 6px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        main {
+            max-width: 1200px;
+            margin: 2em auto;
+            padding: 0 1em;
+        }
+        .section {
+            margin-bottom: 2em;
+        }
+        .section h2 {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2em;
+        }
+        .product-card {
+            background-color: #e66e0c;
+            border-radius: 8px;
+            padding: 1em;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .product-card:hover {
+            background-color: #dd890a;
+            border-radius: 8px;
+            padding: 1em;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .button-container {
+            margin-top: 1em;
+        }
+        .button-container button {
+            padding: 0.5em 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0.5em;
+        }
+        .add-to-cart {
+            background-color: #004080;
+            color: white;
+        }
+        .add-to-cart:hover {
+            background-color: #003366;
+        }
+        .remove-from-cart {
+            background-color: #ff0000;
+            color: white;
+        }
+        .remove-from-cart:hover {
+            background-color: #cc0000;
+        }
+        .remove-from-cart.hidden {
+            display: none;
+        }
+        footer {
+            background-color: #003366;
+            color: white;
+            text-align: center;
+            padding: 1em;
+            margin-top: 2em;
+        }
+        /* Estilos do Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+        .modal-header {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .modal-footer {
+            text-align: right;
+        }
+        .modal-footer button {
+            padding: 0.5em 1em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .clear-cart {
+            background-color: #ff0000;
+            color: white;
+        }
+        .clear-cart:hover {
+            background-color: #cc0000;
+        }
+        .checkout {
+            background-color: #004080;
+            color: white;
+        }
+        .checkout:hover {
+            background-color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Super EPI</h1>
+        <p>Sua segurança é nossa prioridade</p>
+        <div class="cart-icon" onclick="openCartModal()">
+            <img src="https://img.icons8.com/material-outlined/24/000000/shopping-cart.png" alt="Carrinho">
+            <div id="cart-count" class="cart-count">0</div>
+        </div>
+    </header>
+    <div class="search-container">
+        <input type="text" id="search" placeholder="Buscar produtos...">
+        <button type="button" onclick="searchProducts()">Buscar</button>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Sobre Nós</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
+    <main>
+        <!-- Produtos em Destaque -->
+        <div class="section">
+            <h2>Produtos em Destaque</h2>
+            <div class="product-grid">
+                <div class="product-card" data-product-id="1">
+                    <img src="/api/placeholder/200/200" alt="Capacete de Segurança">
+                    <h3>Capacete de Segurança</h3>
+                    <p>R$ 49,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Capacete de Segurança', 49.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Capacete de Segurança')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="2">
+                    <img src="/api/placeholder/200/200" alt="Luvas de Proteção">
+                    <h3>Luvas de Proteção</h3>
+                    <p>R$ 19,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Luvas de Proteção', 19.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Luvas de Proteção')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="3">
+                    <img src="/api/placeholder/200/200" alt="Óculos de Segurança">
+                    <h3>Óculos de Segurança</h3>
+                    <p>R$ 29,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Óculos de Segurança', 29.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Óculos de Segurança')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="4">
+                    <img src="/api/placeholder/200/200" alt="Protetor Auricular">
+                    <h3>Protetor Auricular</h3>
+                    <p>R$ 9,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Protetor Auricular', 9.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Protetor Auricular')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <!-- Adicione mais produtos conforme necessário -->
+            </div>
+        </div>
+
+        <!-- Promoções -->
+        <div class="section">
+            <h2>Promoções</h2>
+            <div class="product-grid">
+                <div class="product-card" data-product-id="5">
+                    <img src="/api/placeholder/200/200" alt="Capacete de Proteção Promoção">
+                    <h3>Capacete de Proteção - Promoção</h3>
+                    <p><s>R$ 59,99</s> <strong>R$ 39,99</strong></p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Capacete de Proteção - Promoção', 39.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Capacete de Proteção - Promoção')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="6">
+                    <img src="/api/placeholder/200/200" alt="Luvas de Proteção Promoção">
+                    <h3>Luvas de Proteção - Promoção</h3>
+                    <p><s>24,99</s> <strong>R$ 14,99</strong></p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Luvas de Proteção - Promoção', 14.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Luvas de Proteção - Promoção')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="7">
+                    <img src="/api/placeholder/200/200" alt="Óculos de Segurança Promoção">
+                    <h3>Óculos de Segurança - Promoção</h3>
+                    <p><s>R$ 39,99</s> <strong>R$ 24,99</strong></p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Óculos de Segurança - Promoção', 24.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Óculos de Segurança - Promoção')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="8">
+                    <img src="/api/placeholder/200/200" alt="Protetor Auricular Promoção">
+                    <h3>Protetor Auricular - Promoção</h3>
+                    <p><s>R$ 14,99</s> <strong>R$ 7,99</strong></p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Protetor Auricular - Promoção', 7.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Protetor Auricular - Promoção')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="9">
+                    <img src="/api/placeholder/200/200" alt="Colete de Proteção Promoção">
+                    <h3>Colete de Proteção - Promoção</h3>
+                    <p><s>R$ 99,99</s> <strong>R$ 69,99</strong></p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Colete de Proteção - Promoção', 69.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Colete de Proteção - Promoção')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <!-- Adicionar mais produtos em promoção conforme necessário -->
+            </div>
+        </div>
+
+        <!-- Recomendados -->
+        <div class="section">
+            <h2>Recomendados</h2>
+            <div class="product-grid">
+                <div class="product-card" data-product-id="10">
+                    <img src="/api/placeholder/200/200" alt="Óculos de Segurança Recomendado">
+                    <h3>Óculos de Segurança Recomendado</h3>
+                    <p>R$ 29,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Óculos de Segurança Recomendado', 29.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Óculos de Segurança Recomendado')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="11">
+                    <img src="/api/placeholder/200/200" alt="Botas de Segurança Recomendado">
+                    <h3>Botas de Segurança Recomendado</h3>
+                    <p>R$ 89,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Botas de Segurança Recomendado', 89.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Botas de Segurança Recomendado')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="12">
+                    <img src="/api/placeholder/200/200" alt="Capacete de Proteção Recomendado">
+                    <h3>Capacete de Proteção Recomendado</h3>
+                    <p>R$ 59,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Capacete de Proteção Recomendado', 59.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Capacete de Proteção Recomendado')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="13">
+                    <img src="/api/placeholder/200/200" alt="Luvas de Proteção Recomendado">
+                    <h3>Luvas de Proteção Recomendado</h3>
+                    <p>R$ 19,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Luvas de Proteção Recomendado', 19.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Luvas de Proteção Recomendado')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="14">
+                    <img src="/api/placeholder/200/200" alt="Protetor de Pescoço Recomendado">
+                    <h3>Protetor de Pescoço Recomendado</h3>
+                    <p>R$ 27,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Protetor de Pescoço Recomendado', 27.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Protetor de Pescoço Recomendado')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="15">
+                    <img src="/api/placeholder/200/200" alt="Colete de Proteção Recomendado">
+                    <h3>Colete de Proteção Recomendado</h3>
+                    <p>R$ 89,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Colete de Proteção Recomendado', 89.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Colete de Proteção Recomendado')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product-id="16">
+                    <img src="/api/placeholder/200/200" alt="Protetor de Calçado Recomendado">
+                    <h3>Protetor de Calçado Recomendado</h3>
+                    <p>R$ 69,99</p>
+                    <div class="button-container">
+                        <button class="add-to-cart" onclick="addToCart('Protetor de Calçado Recomendado', 69.99, this)">Adicionar ao Carrinho</button>
+                        <button class="remove-from-cart hidden" onclick="removeFromCart('Protetor de Calçado Recomendado')">Excluir do Carrinho</button>
+                    </div>
+                </div>
+                <!-- Adicionar mais produtos recomendados conforme necessário -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal do Carrinho -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Seu Carrinho</h2>
+                <span class="close" onclick="closeCartModal()">&times;</span>
+            </div>
+            <div id="cart-items"></div>
+            <div class="modal-footer">
+                <button class="clear-cart" onclick="clearCart()">Limpar Carrinho</button>
+                <button class="checkout" onclick="checkout()">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Super EPI. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Função para adicionar itens ao carrinho
+        function addToCart(name, price, button) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (!cart.find(item => item.name === name)) {
+                cart.push({ name, price });
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartCount();
+                updateButtonVisibility();
+            }
+        }
+
+        // Função para remover itens do carrinho
+        function removeFromCart(name) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart = cart.filter(item => item.name !== name);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            updateButtonVisibility();
+        }
+
+        // Função para atualizar o número de itens no carrinho
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = document.getElementById('cart-count');
+            cartCount.textContent = cart.length;
+        }
+
+        // Função para atualizar a visibilidade dos botões "Excluir do Carrinho"
+        function updateButtonVisibility() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            document.querySelectorAll('.product-card').forEach(card => {
+                const productName = card.querySelector('h3').textContent;
+                const addToCartButton = card.querySelector('.add-to-cart');
+                const removeFromCartButton = card.querySelector('.remove-from-cart');
+                if (cart.find(item => item.name === productName)) {
+                    addToCartButton.classList.add('hidden');
+                    removeFromCartButton.classList.remove('hidden');
+                } else {
+                    addToCartButton.classList.remove('hidden');
+                    removeFromCartButton.classList.add('hidden');
+                }
+            });
+        }
+
+        // Função para buscar produtos
+        function searchProducts() {
+            const query = document.getElementById('search').value.toLowerCase();
+            document.querySelectorAll('.product-card').forEach(card => {
+                const productName = card.querySelector('h3').textContent.toLowerCase();
+                card.style.display = productName.includes(query) ? 'block' : 'none';
+            });
+        }
+
+        // Função para abrir o modal do carrinho
+        function openCartModal() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cartItemsContainer.innerHTML = ''; // Limpa os itens do modal
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>O carrinho está vazio.</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.textContent = ${item.name} - R$ ${item.price.toFixed(2)};
+                    cartItemsContainer.appendChild(itemElement);
+                });
+            }
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+
+        // Função para fechar o modal do carrinho
+        function closeCartModal() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+
+        // Função para limpar o carrinho
+        function clearCart() {
+            localStorage.removeItem('cart');
+            updateCartCount();
+            closeCartModal();
+            alert('O carrinho foi limpo.');
+        }
+
+        // Função para finalizar a compra (exemplo simples)
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('O carrinho está vazio. Adicione itens antes de finalizar a compra.');
+                return;
+            }
+            // Implementar lógica de finalização de compra aqui
+            alert('Compra finalizada com sucesso!');
+            localStorage.removeItem('cart');
+            updateCartCount();
+            closeCartModal();
+        }
+
+        // Inicializa a visibilidade dos botões ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            updateButtonVisibility();
+        });
+    </script>
+</body>
+</html>
