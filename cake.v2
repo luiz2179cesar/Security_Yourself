@@ -498,7 +498,7 @@
             } else {
                 cart.forEach(item => {
                     const itemElement = document.createElement('div');
-                    itemElement.textContent = ${item.name} - R$ ${item.price.toFixed(2)};
+                    itemElement.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
                     cartItemsContainer.appendChild(itemElement);
                 });
             }
